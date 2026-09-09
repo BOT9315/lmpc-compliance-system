@@ -1,4 +1,5 @@
-const API_BASE_URL = "/api/v1";
+const API_BASE_URL =
+    "https://lmpc-compliance-system-l7r9.onrender.com/api/v1";
 let latestAuditResult = null;
 
 // File Input & Drag-and-Drop Handler
