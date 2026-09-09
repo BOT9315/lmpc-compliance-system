@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMPC Packaging Compliance Verifier</title>
+    <!-- Modern Font & Styling -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="badge">Legal Metrology Rules, 2011</span>
+                <h1>Packaging Compliance Audit Platform</h1>
+            </div>
+            <p class="subtitle">Automated Legal Metrology (Packaged Commodities) Rule Verification System</p>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="dashboard-grid">
+            <!-- Left Panel: File Input & Preview -->
+            <section class="card upload-card">
+                <h2>Upload Packaging Image</h2>
+
+                <div class="drop-zone" id="dropZone">
+                    <input type="file" id="imageInput" accept="image/*" class="file-input">
+                    <div class="drop-zone-content">
+                        <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <p class="drop-text">Drag & drop packaging label here, or <span class="highlight">browse</span>
+                        </p>
+                        <span class="file-limits">Supports JPG, PNG, WEBP</span>
+                    </div>
+                </div>
+
+                <!-- Image Preview Area -->
+                <div class="preview-container" id="previewContainer" style="display: none;">
+                    <img id="imagePreview" alt="Packaging Label Preview">
+                    <div class="file-info" id="fileInfo"></div>
+                </div>
+
+                <button id="scanBtn" class="btn btn-primary" onclick="uploadImage()" disabled>
+                    <span id="btnText">Scan Packaging Label</span>
+                    <div id="btnSpinner" class="spinner" style="display: none;"></div>
+                </button>
+            </section>
+
+            <!-- Right Panel: Compliance Results -->
+            <section class="card results-card" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Audit Report</h2>
+                    <button id="pdfBtn" class="btn btn-secondary" onclick="exportPDF()">
+                        Export PDF Report
+                    </button>
+                </div>
+
+                <!-- Score Dashboard -->
+                <div class="metrics-banner" id="statusBadge">
+                    <div class="score-dial">
+                        <span id="scoreValue">0%</span>
+                        <span class="score-label">Compliance Score</span>
+                    </div>
+                    <div class="status-summary">
+                        <span class="status-title" id="statusTitle">NON-COMPLIANT</span>
+                        <p id="statusDescription">Compliance analysis completed against LMPC specifications.</p>
+                    </div>
+                </div>
+
+                <!-- Rules Audit Table -->
+                <div class="table-wrapper">
+                    <table id="findingsTable">
+                        <thead>
+                            <tr>
+                                <th>Field / Clause</th>
+                                <th>Status</th>
+                                <th>Severity</th>
+                                <th>Detected Value</th>
+                                <th>Legal Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic Content Inserted Here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Raw Text Extraction Box -->
+                <div class="ocr-text-card">
+                    <h3>Extracted Label Text (OCR)</h3>
+                    <pre id="extractedTextDisplay"></pre>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Application Script -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>
