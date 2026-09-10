@@ -88,6 +88,46 @@ cd backend
 uvicorn main:app --reload
 ```
 
+### Running in VS Code
+
+Open the repo folder in VS Code, open the integrated terminal (`` Ctrl+` ``),
+and run the commands below for your OS.
+
+**Windows (PowerShell / VS Code default terminal):**
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python backend/main.py
+```
+
+**macOS / Linux:**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python backend/main.py
+```
+
+This installs dependencies into an isolated virtual environment, starts the
+server at `http://127.0.0.1:8000`, and automatically opens it in your default
+browser.
+
+> **Tesseract OCR must also be installed separately** (it's not a pip
+> package) — see [Prerequisites](#prerequisites) above.
+
+If VS Code prompts you to select `venv` as the workspace's Python
+interpreter, click **Yes**.
+
+To run with auto-reload during development instead:
+
+```bash
+cd backend
+uvicorn main:app --reload
+```
+
 ### Option 2 — Run with Docker
 
 ```bash
