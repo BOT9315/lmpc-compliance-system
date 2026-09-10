@@ -90,6 +90,22 @@ uvicorn main:app --reload
 
 ### Running in VS Code
 
+> **Note on this project's frontend/backend:** there is only **one process to
+> run**. The FastAPI backend serves the frontend files automatically (see
+> `app.mount("/", StaticFiles(...))` in `backend/main.py`) — you do **not**
+> need to start the frontend separately. Starting the backend and opening
+> `http://127.0.0.1:8000` gives you the full app, HTML/CSS/JS included.
+
+> **If you downloaded this repo as a ZIP from GitHub:** extracting it usually
+> creates a folder like `lmpc-compliance-system-main` that contains
+> *another* folder of the same name inside it. Before running anything,
+> check you're in the folder that directly contains `requirements.txt`,
+> `backend/`, and `frontend/`:
+> ```powershell
+> dir
+> ```
+> If you don't see `requirements.txt` in the list, run `cd lmpc-compliance-system-main` and check again.
+
 Open the repo folder in VS Code, open the integrated terminal (`` Ctrl+` ``),
 and run the commands below for your OS.
 
@@ -112,8 +128,8 @@ python backend/main.py
 ```
 
 This installs dependencies into an isolated virtual environment, starts the
-server at `http://127.0.0.1:8000`, and automatically opens it in your default
-browser.
+backend server at `http://127.0.0.1:8000`, **which also serves the
+frontend**, and automatically opens it in your default browser.
 
 > **Tesseract OCR must also be installed separately** (it's not a pip
 > package) — see [Prerequisites](#prerequisites) above.
