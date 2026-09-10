@@ -1,4 +1,5 @@
 import io
+import os
 import re
 from enum import Enum
 from typing import List, Optional, Tuple
@@ -271,10 +272,10 @@ def check_net_quantity(text: str) -> ComplianceIssue:
 
     return ComplianceIssue(
         field="Net Quantity",
-        status=FieldStatus.REVIEW.value,
+        status=FieldStatus.FAIL.value,
         severity="HIGH",
         detected_value="Not Detected",
-        message="No net quantity declaration detected.",
+        message="No net quantity declaration detected. This is a mandatory declaration.",
         legal_reference="Rule 6(1)(c)"
     )
 
@@ -570,7 +571,7 @@ def calculate_overall_status(issues: List[ComplianceIssue]) -> OverallStatus:
 @app.post("/api/v1/scan", response_model=VerificationResult)
 async def scan_package(file: UploadFile = File(...)):
     contents = await file.read()
-    if not contents or not file.content_type.startswith("image/"):
+    if not contents or not (file.content_type or "").startswith("image/"):
         raise HTTPException(status_code=400, detail="Please upload a valid image file.")
 
     processed_images = preprocess_image(contents)
@@ -645,9 +646,23 @@ async def export_pdf(data: VerificationResult):
 # SERVE FRONTEND (must be mounted last so API routes above take priority)
 # ============================================================
 
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="static")
+FRONTEND_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "frontend")
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="static")
 
 
 if __name__ == "__main__":
+    import threading
+    import webbrowser
+
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+    HOST = "127.0.0.1"
+    PORT = 8000
+
+    def open_browser():
+        webbrowser.open(f"http://{HOST}:{PORT}/")
+
+    # Delay slightly so the browser doesn't open before uvicorn is ready to accept connections.
+    threading.Timer(1.5, open_browser).start()
+
+    uvicorn.run(app, host=HOST, port=PORT)
