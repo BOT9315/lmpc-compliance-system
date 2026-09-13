@@ -1,4 +1,4 @@
-# PackCheck AI — LMPC Compliance Verifier
+ #### Sankhya AI — LMPC Compliance Verifier
 
 Automated packaging label auditor that checks scanned label images against
 India's **Legal Metrology (Packaged Commodities) Rules, 2011** and produces a
